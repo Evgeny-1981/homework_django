@@ -26,7 +26,7 @@ class Product(models.Model):
     price = models.FloatField(verbose_name='цена за покупку')
     create_at = models.DateTimeField(verbose_name='дата создания')
     update_at = models.DateTimeField(verbose_name='дата последнего изменения')
-    manufactured_at = models.DateTimeField(verbose_name='дата производства продукта', default=datetime.datetime.now())
+    #manufactured_at = models.DateTimeField(verbose_name='дата производства продукта', default=datetime.datetime.now())
 
     def __str__(self):
         return f"Наименование продукта: {self.name}, категория продукта: {self.category}"
