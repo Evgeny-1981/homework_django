@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
                     models.ImageField(
                         blank=True,
                         null=True,
-                        upload_to="prod_image/",
+                        upload_to="product_image/",
                         verbose_name="изображение",
                     ),
                 ),

@@ -1,0 +1,33 @@
+{% extends 'catalog/home.html' %}
+{% load my_tags %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                {% if object.image %}
+                    <img src="{{ object.image | media_filter}}">
+                {% else %}
+                    <img src="{% static "images/default.jpg" %}">
+                {% endif %}
+                <div class="card-header">
+
+                    <h5 class="my-0 font-weight-normal">{{object.name}}</h5>
+                    <h6 class="my-0 font-weight-normal">{{object.description | slice:"100"}}</h6>
+<!--                    <h6 class="my-0 font-weight-normal">Остаток: {{object.image}}</h6>-->
+                    <h6 class="my-0 font-weight-normal">Код товара: {{object.id}}</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title pricing-card-title">Цена: {{object.price}}</h6>
+
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
