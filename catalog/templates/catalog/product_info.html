@@ -1,0 +1,25 @@
+{% extends 'catalog/home.html' %}
+{% load my_tags %}
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <img src="{{ product.image | media_filter}}}">
+                <div class="card-header">
+                    <h5 class="my-0 font-weight-normal">{{product.name}}</h5>
+                    <h6 class="my-0 font-weight-normal">{{product.description | slice:"100"}}</h6>
+                    <h6 class="my-0 font-weight-normal">Остаток: {{product.image}}</h6>
+                    <h6 class="my-0 font-weight-normal">Код товара: {{product.id}}</h6>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-title pricing-card-title">Цена: {{product.price}}</h6>
+
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

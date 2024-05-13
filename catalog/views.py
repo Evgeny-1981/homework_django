@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
 
 
-def home(request):
+def product_list(request):
     """Контроллер отображения домашней страницы"""
     product_list = Product.objects.all()
     context = {
@@ -21,10 +21,10 @@ def contact(request):
     return render(request, 'catalog/contacts.html')
 
 
-def product(request):
-    # product_list = Product.objects.all()
+def product_info(request, pk):
+    product = get_object_or_404(Product, pk=pk)
     context = {
-        'object': Product.objects.get(pk=3)
+        'product': product
     }
     return render(request, 'catalog/product_info.html', context)
 
