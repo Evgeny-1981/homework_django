@@ -1,1 +1,18 @@
-[{"model": "catalog.category", "pk": 3, "fields": {"name": "Автомобили", "description": "Без комментариев"}}, {"model": "catalog.category", "pk": 4, "fields": {"name": "Мотоциклы", "description": "Без комментариев"}}]
+[
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "РђРІС‚РѕРјРѕР±РёР»Рё",
+      "description": "Р‘РµР· РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "РњРѕС‚РѕС†РёРєР»С‹",
+      "description": "Р‘РµР· РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ"
+    }
+  }
+]

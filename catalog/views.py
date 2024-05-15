@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
 
 
-def product_list(request):
+def products_list(request):
     """Контроллер отображения домашней страницы"""
     product_list = Product.objects.all()
     context = {
@@ -27,4 +27,3 @@ def product_info(request, pk):
         'product': product
     }
     return render(request, 'catalog/product_info.html', context)
-
