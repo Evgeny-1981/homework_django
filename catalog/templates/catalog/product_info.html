@@ -2,28 +2,30 @@
 {% load my_tags %}
 {% load static %}
 {% block content %}
-
 <div class="container">
     <div class="row text-center">
-        <div class="col-3">
+        <div class="col-8">
             <div class="card mb-4 box-shadow">
-                 {% if object.image %}
-                    <img src="{{ object.image | media_filter}}">
+                {% if product.image %}
+                <img src="{{ product.image | media_filter}}">
                 {% else %}
-                    <img src="{% static "images/default.jpg" %}">
+                <img src="{% static 'images/default.jpg' %}">
                 {% endif %}
                 <div class="card-header">
                     <h5 class="my-0 font-weight-normal">{{product.name}}</h5>
-                    <h6 class="my-0 font-weight-normal">{{product.description | slice:"100"}}</h6>
+                    <h6 class="my-0 font-weight-normal">{{product.description}}</h6>
                     <h6 class="my-0 font-weight-normal">Остаток: {{product.quantity}}</h6>
                     <h6 class="my-0 font-weight-normal">Код товара: {{product.id}}</h6>
                 </div>
                 <div class="card-body">
                     <h6 class="card-title pricing-card-title">Цена: {{product.price}}</h6>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    <a class="btn btn-primary" role="button"
+                       href="{% url 'catalog:product_list' %}">Назад</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
+
