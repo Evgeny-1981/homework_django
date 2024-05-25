@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from catalog.models import Product
+from catalog.models import Product, Blog
+from django.urls import reverse_lazy, reverse
+from pytils.translit import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 
@@ -24,3 +26,27 @@ def contact(request):
         message = request.POST.get('message')
         print(f'Имя:{name}, тел.:{phone}, сообщение: {message}')
     return render(request, 'catalog/contacts.html')
+
+class BlogListView(ListView):
+    model = Blog
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(published=True)
+        return queryset
+
+
+class BlogDetailView(DetailView):
+    model = Blog
+
+class BlogCreateView(CreateView):
+    model = Blog
+    fields = ("title", "content", "preview", "created_at",)
+    success_url = reverse_lazy('catalog:blog_list')
+
+    def form_valid(self, form):
+        if form.is_valid():
+            new_blog = form.save()
+            new_blog.slug = slugify(new_blog.title)
+            new_blog.save()
+        return super().form_valid(form)

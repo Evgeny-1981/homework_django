@@ -60,3 +60,6 @@ class Blog(models.Model):
         verbose_name = "блог"
         verbose_name_plural = "блоги"
         ordering = ("created_at", "count_views",)
+
+    def __str__(self):
+        return f"{self.title}, {self.content}"
