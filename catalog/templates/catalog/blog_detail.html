@@ -3,7 +3,7 @@
 {% load static %}
 {% block content %}
 <div class="container">
-    <div class="row text-center">
+    <div class="row">
         <div class="col-8">
             <div class="card mb-4 box-shadow">
                 {% if object.preview %}
@@ -13,7 +13,7 @@
                 {% endif %}
                 <div class="card-header">
                     <h5 class="my-0 font-weight-normal">{{object.title}}</h5>
-                    <h6 class="my-0 font-weight-normal">Слаг имя:{{object.slug}}</h6>
+                    <h6 class="my-0 font-weight-normal">Слаг имя: {{object.slug}}</h6>
                     <h6 class="my-0 font-weight-normal">{{object.content}}</h6>
                     <h6 class="my-0 font-weight-normal">Запись создана: {{object.created_at}}</h6>
                     <h6 class="my-0 font-weight-normal">Количество просмотров: {{object.count_views}}</h6>

@@ -24,6 +24,8 @@ class ContactsView(TemplateView):
         message = request.POST.get('message', '')
         print(f'Имя:{name}, тел.:{phone}, сообщение: {message}')
         return HttpResponseRedirect(self.request.path)
+
+
 # def contact(request):
 #     """Контроллер отображения страницы с контактами"""
 #     if request.method == 'POST':
