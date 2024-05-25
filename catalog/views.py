@@ -1,14 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 from catalog.models import Product
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 
-def products_list(request):
+class ProductListView(ListView):
     """Контроллер отображения домашней страницы"""
-    product_list = Product.objects.all()
-    context = {
-        'object_list': product_list
-    }
-    return render(request, 'catalog/product_list.html', context)
+    model = Product
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ContactsView(TemplateView):
+    template_name = 'catalog/contacts.html'
 
 
 def contact(request):
@@ -17,13 +22,5 @@ def contact(request):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
-        print(f'{name}, телефон: {phone}, сообщение: {message}')
+        print(f'Имя:{name}, тел.:{phone}, сообщение: {message}')
     return render(request, 'catalog/contacts.html')
-
-
-def product_info(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    context = {
-        'product': product
-    }
-    return render(request, 'catalog/product_info.html', context)

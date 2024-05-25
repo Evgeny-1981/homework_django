@@ -14,8 +14,8 @@
                 {% endif %}
                 <div class="card-header">
                     <h5 class="my-0 font-weight-normal">{{object.name}}</h5>
-                    <h6 class="my-0 font-weight-normal">{{object.description | slice:"100"}}</h6>
-                    <h6 class="my-0 font-weight-normal">Код товара: {{object.id}}</h6>
+                    <h6 class="my-0 font-weight-normal">{{object.description | truncatechars:40}}</h6>
+                    <h6 class="my-0 font-weight-normal">Код товара: {{object.product_id}}</h6>
                 </div>
                 <div class="card-body">
                     <h6 class="card-title pricing-card-title">Цена: {{object.price}}</h6>

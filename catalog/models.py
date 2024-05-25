@@ -36,8 +36,27 @@ class Product(models.Model):
     def __str__(self):
         return f"Наименование продукта: {self.name}, категория продукта: {self.category}, цена: {self.price}"
 
+    def product_id(self):
+        return f'{self.id:04}'
+
     class Meta:
         db_table = "product"
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ("name",)
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=120, verbose_name="заголовок")
+    slug = models.CharField(max_length=120, verbose_name="слаг")
+    content = models.TextField(verbose_name="содержимое")
+    preview = models.ImageField(upload_to="blog/images", verbose_name="превью(изображение)", **NULLABLE)
+    created_at = models.DateField(verbose_name="дата создания")
+    published = models.BooleanField(verbose_name="признак публикации", default=False)
+    count_views = models.IntegerField(verbose_name="количество просмотров", default=0, **NULLABLE)
+
+    class Meta:
+        db_table = "blog"
+        verbose_name = "блог"
+        verbose_name_plural = "блоги"
+        ordering = ("created_at", "count_views",)
