@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from catalog.models import Product, Blog
 from django.urls import reverse_lazy, reverse
@@ -18,7 +17,7 @@ class ProductDetailView(DetailView):
 class ContactsView(TemplateView):
     template_name = 'catalog/contacts.html'
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         name = request.POST.get('name', '')
         phone = request.POST.get('phone', '')
         message = request.POST.get('message', '')
