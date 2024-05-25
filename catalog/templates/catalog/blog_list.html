@@ -3,7 +3,7 @@
 {% block content %}
 <div class="row text-center">
     <a class="btn mb-3 btn-lg btn-block btn-outline-primary" href="{% url 'catalog:blog_create'%}"
-       role="button">Добавить пост</a>
+       role="button">Добавить запись</a>
     {% for object in object_list %}
     <div class="col-4 col-xs-12">
         <div class="card mb-3 box-shadow">
@@ -17,9 +17,9 @@
                 <h4 class="card-text"> {{ object.count_views }} просмотров </h4>
                 <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_info' object.pk %}"
                    role="button">Подробнее</a>
-                <a class="btn btn-primary" role="button" href="#"
+                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_update' object.pk %}"
                    role="button">Редактировать</a>
-                <a class="btn btn-primary" role="button" href="#"
+                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_delete' object.pk %}"
                    role="button">Удалить</a>
             </div>
         </div>

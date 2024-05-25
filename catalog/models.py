@@ -53,13 +53,13 @@ class Blog(models.Model):
     preview = models.ImageField(upload_to="blog/images", verbose_name="превью(изображение)", **NULLABLE)
     created_at = models.DateField(verbose_name="дата создания")
     published = models.BooleanField(verbose_name="признак публикации", default=False)
-    count_views = models.IntegerField(verbose_name="количество просмотров", default=0, **NULLABLE)
+    count_views = models.PositiveIntegerField(verbose_name="счетчик просмотров", default=0, **NULLABLE)
 
     class Meta:
         db_table = "blog"
         verbose_name = "блог"
         verbose_name_plural = "блоги"
-        ordering = ("created_at", "count_views",)
+        ordering = ("count_views",)
 
     def __str__(self):
         return f"{self.title}, {self.content}"

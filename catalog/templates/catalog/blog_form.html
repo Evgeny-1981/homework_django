@@ -2,16 +2,22 @@
 {% load static %}
 {% block content %}
 <div class="container">
-     <div class="row">
-         <div class="col-12">
-             <form class="row" method="post" enctype="multipart/form-data">
-                 <div class="card-body">
-                     {% csrf_token %}
-                     {{ form.as_p }}
-                 </div>
-                 <button type="submit" class="btn btn-primary">Создать</button>
-             </form>
-         </div>
-     </div>
+    <div class="row">
+        <div class="col-12">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if not object %}
+                    Опубликовать
+                    {% else %}
+                    Сохранить
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
