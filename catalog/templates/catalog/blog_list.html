@@ -15,11 +15,11 @@
 
                 <p class="card-text">{{ object.content |truncatechars:40}}</p>
                 <h4 class="card-text"> {{ object.count_views }} просмотров </h4>
-                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_info' object.pk %}"
+                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_info' object.slug %}"
                    role="button">Подробнее</a>
-                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_update' object.pk %}"
+                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_update' object.slug %}"
                    role="button">Редактировать</a>
-                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_delete' object.pk %}"
+                <a class="btn btn-primary" role="button" href="{% url 'catalog:blog_delete' object.slug %}"
                    role="button">Удалить</a>
             </div>
         </div>
