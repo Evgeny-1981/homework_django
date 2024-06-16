@@ -2,32 +2,49 @@
 {% load my_tags %}
 {% load static %}
 {% block content %}
-<div class="container">
-    <div class="row text-center">
-        {% for object in object_list %}
-        <div class="col-3">
-            <div class="card mb-4 box-shadow">
-                {% if object.image %}
-                <img src="{{ object.image | media_filter }}">
-                {% else %}
-                <img src="{% static 'images/default.jpg' %}">
-                {% endif %}
-                <div class="card-header">
-                    <h5 class="my-0 font-weight-normal">{{object.name}}</h5>
-                    <h6 class="my-0 font-weight-normal">{{object.description | truncatechars:40}}</h6>
-                    <h6 class="my-0 font-weight-normal">Код товара: {{object.product_id}}</h6>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-title pricing-card-title">Цена: {{object.price}}</h6>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+<div class="row text-center">
+    <a class="btn mb-3 btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_create'%}"
+       role="button">Добавить продукт</a>
+    <div class="container">
+        <div class="row text-center">
+            {% for object in object_list %}
+            <div class="col-4">
+                <div class="card mb-4 box-shadow">
+                    {% if object.image %}
+                    <img src="{{ object.image | media_filter }}">
+                    {% else %}
+                    <img src="{% static 'images/default.jpg' %}">
+                    {% endif %}
+                    <div class="card-header">
+                        <h5 class="my-0 font-weight-normal">{{object.name}}</h5>
+                        <h6 class="my-0 font-weight-normal">{{object.description | truncatechars:40}}</h6>
+                        <h6 class="my-0 font-weight-normal">Код товара: {{object.product_id}}</h6>
+                        {% for version in object.version.all %}
+                        {% if version.current_version %}
+                        <div class="text">
+                            Номер версии: {{version.version_number}}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                     <div class="card-body">
-                        <a class="btn btn-primary" role="button"
-                           href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
+                        <h6 class="card-title pricing-card-title">Цена: {{object.price}}</h6>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                        <div class="card-body">
+                            <a class="btn btn-primary" role="button"
+                               href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
+                            <a class="btn btn-primary" role="button" href="{% url 'catalog:product_update' object.pk %}"
+                               role="button">Редактировать</a>
+                            <a class="btn btn-primary" role="button" href="{% url 'catalog:product_delete' object.pk %}"
+                               role="button">Удалить</a>
+
+
+                        </div>
                     </div>
                 </div>
+
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
-{% endblock %}
+    {% endblock %}

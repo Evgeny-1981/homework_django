@@ -1,5 +1,6 @@
 {% extends 'catalog/home.html' %}
 {% load my_tags %}
+{% load static %}
 {% block content %}
 <div class="row text-center">
     <a class="btn mb-3 btn-lg btn-block btn-outline-primary" href="{% url 'catalog:blog_create'%}"
@@ -7,7 +8,11 @@
     {% for object in object_list %}
     <div class="col-4 col-xs-12">
         <div class="card mb-3 box-shadow">
+            {% if object.preview %}
             <img src="{{ object.preview | media_filter }}" class="img-fluid">
+            {% else %}
+            <img src="{% static 'images/default.jpg' %}">
+            {% endif %}
             <div class="card-header">
                 <h5 class="my-0 font-weight-normal">{{ object.title }}</h5>
             </div>

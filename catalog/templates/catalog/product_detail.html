@@ -16,6 +16,13 @@
                     <h6 class="my-0 font-weight-normal">{{product.description}}</h6>
                     <h6 class="my-0 font-weight-normal">Остаток: {{product.quantity}}</h6>
                     <h6 class="my-0 font-weight-normal">Код товара: {{product.product_id}}</h6>
+                    {% for version in object.version.all %}
+                    {% if version.current_version %}
+                    <div class="text">
+                        Номер версии: {{version.version_number}}
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="card-body">
                     <h6 class="card-title pricing-card-title">Цена: {{product.price}}</h6>
