@@ -33,18 +33,16 @@
                         <div class="card-body">
                             <a class="btn btn-primary" role="button"
                                href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
-                            <a class="btn btn-primary" role="button" href="{% url 'catalog:product_update' object.pk %}"
-                               role="button">Редактировать</a>
-                            <a class="btn btn-primary" role="button" href="{% url 'catalog:product_delete' object.pk %}"
-                               role="button">Удалить</a>
-
-
+                            <a class="btn btn-primary" role="button"
+                               href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
+                            <a class="btn btn-primary" role="button"
+                               href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
                         </div>
                     </div>
                 </div>
-
             </div>
             {% endfor %}
         </div>
     </div>
     {% endblock %}
+</div>

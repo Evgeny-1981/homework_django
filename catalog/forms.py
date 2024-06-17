@@ -51,4 +51,3 @@ class VersionForm(FormMixin, ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
-
