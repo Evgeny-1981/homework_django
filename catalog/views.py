@@ -61,7 +61,7 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy("catalog:product_list")
 
     def get_success_url(self):
-        """ Метод для определения пути, куда будет совершен переход после редактирования продкута"""
+        """ Метод для определения пути, куда будет совершен переход после редактирования продукта"""
         return reverse('catalog:product_info', args=[self.get_object().pk])
 
     def get_context_data(self, **kwargs):
