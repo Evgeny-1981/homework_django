@@ -24,16 +24,26 @@ class ProductForm(FormMixin, ModelForm):
 
     def clean_name(self):
         """Метод для проверки валидации названия продукта при создании"""
+        list_words = []
         cleaned_data = self.cleaned_data['name']
-        if cleaned_data.lower() in self.locked_words:
-            raise ValidationError(f'Слово {cleaned_data} запрещено использовать в названии продукта!')
+        for word in self.locked_words:
+            if word in cleaned_data:
+                list_words.append(word)
+        result_locked_words = ", ".join(list_words)
+        if len(result_locked_words) != 0:
+            raise ValidationError(f'Запрещено использовать в названии слова: {result_locked_words}')
         return cleaned_data
 
     def clean_description(self):
         """Метод для проверки валидации описания продукта при создании"""
+        list_words = []
         cleaned_data = self.cleaned_data['description']
-        if cleaned_data.lower() in self.locked_words:
-            raise ValidationError(f'Слово {cleaned_data} запрещено использовать в описании продукта!')
+        for word in self.locked_words:
+            if word in cleaned_data:
+                list_words.append(word)
+        result_locked_words = ", ".join(list_words)
+        if len(result_locked_words) != 0:
+            raise ValidationError(f'Запрещено использовать в описании слова: {result_locked_words}')
         return cleaned_data
 
 
@@ -41,3 +51,4 @@ class VersionForm(FormMixin, ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
+
