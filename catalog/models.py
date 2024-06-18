@@ -51,7 +51,7 @@ class Product(models.Model):
 
 class Blog(models.Model):
     """Модель для блога"""
-    title = models.CharField(max_length=120, verbose_name="заголовок")
+    title = models.CharField(max_length=120, verbose_name="заголовок", unique=True)
     slug = models.CharField(max_length=120, verbose_name="слаг")
     content = models.TextField(verbose_name="содержимое")
     preview = models.ImageField(upload_to="blog/images", verbose_name="превью(изображение)", **NULLABLE)
