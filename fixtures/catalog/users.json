@@ -1,0 +1,44 @@
+[
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$nzPzUvgq0DS7dcZ7YNZ5tL$W8zIONBj7ZuZKodicPK/JMXzTrKYp+H+LUZc1JeaQWg=",
+      "last_login": "2024-06-22T15:15:36.062Z",
+      "is_superuser": true,
+      "first_name": "admin",
+      "last_name": "skypro",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-06-22T03:23:56Z",
+      "email": "admin@sky.pro",
+      "phone": null,
+      "avatar": "",
+      "country": "Россия",
+      "token": null,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$7P3IrPMDL8ysgcA9tTSVaN$jy40JCdFDRvj8xu1VFAJjVStAz2PCLC0GzLwmOa8nuc=",
+      "last_login": "2024-06-22T14:49:24.857Z",
+      "is_superuser": false,
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-06-22T11:41:15.714Z",
+      "email": "eaegorov@mail.ru",
+      "phone": "+79226482718",
+      "avatar": "",
+      "country": "Россия",
+      "token": "5e578b8b25d8b8a32364af5ea0ea41db",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

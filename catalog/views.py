@@ -1,10 +1,12 @@
 from django.http import HttpResponseRedirect
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from catalog.models import Product, Blog, Version
 from django.urls import reverse_lazy, reverse
 from pytils.translit import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, BlogForm, BlogModeratorForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class ProductListView(ListView):
@@ -21,7 +23,7 @@ class ProductListView(ListView):
         return context
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     """Контроллер для создания продукта"""
     model = Product
     form_class = ProductForm
@@ -45,6 +47,8 @@ class ProductCreateView(CreateView):
             self.object = form.save()
             formset.instance = self.object
             formset.save()
+            self.object.owner = self.request.user
+            self.object.save()
             return super().form_valid(form)
         else:
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
@@ -55,10 +59,19 @@ class ProductDetailView(DetailView):
     model = Product
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        elif user.has_perm('catalog.add') and user.has_perm('catalog.change') and user.has_perm('catalog.delete'):
+            return ProductModeratorForm
+        else:
+            raise PermissionDenied
 
     def get_success_url(self):
         """ Метод для определения пути, куда будет совершен переход после редактирования продукта"""
@@ -87,7 +100,7 @@ class ProductUpdateView(UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     """Контроллер для удаления продукта"""
     model = Product
     success_url = reverse_lazy('catalog:product_list')
@@ -133,9 +146,10 @@ class BlogListView(ListView):
         return queryset
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(LoginRequiredMixin, CreateView):
     model = Blog
-    fields = ("title", "content", "preview", "published")
+    form_class = BlogForm
+    # fields = ("title", "content", "preview", "published")
     success_url = reverse_lazy('catalog:blog_list')
 
     def form_valid(self, form):
@@ -146,15 +160,16 @@ class BlogCreateView(CreateView):
         return super().form_valid(form)
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
     model = Blog
-    fields = ("title", "slug", "content", "preview", "published",)
+    form_class = BlogModeratorForm
+    # fields = ("title", "slug", "content", "preview", "published",)
     success_url = reverse_lazy('catalog:blog_list')
 
     def get_success_url(self):
         return reverse('catalog:blog_info', args=[self.kwargs.get('slug')])
 
 
-class BlogDeleteView(DeleteView):
+class BlogDeleteView(LoginRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('catalog:blog_list')

@@ -13,7 +13,7 @@ class UserRegisterForm(FormMixin, UserCreationForm):
 class UserProfileForm(FormMixin, UserChangeForm):
     class Meta:
         model = User
-        fields = ('email', 'phone', 'avatar', 'country')
+        fields = ('email', 'first_name', 'last_name',  'phone', 'avatar', 'country')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

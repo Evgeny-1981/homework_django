@@ -7,6 +7,9 @@
     {% if user.is_authenticated %}
     <a class="btn mb-3 btn-lg btn-block btn-outline-primary" href="{% url 'catalog:product_create'%}"
        role="button">Добавить продукт</a>
+    {% else %}
+    <h3>Для добавления продуктов выполните вход</h3>
+    {% endif %}
     <div class="container">
         <div class="row text-center">
             {% for object in object_list %}
@@ -36,10 +39,14 @@
                         <div class="card-body">
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
+                            {% if perms.catalog.add and perms.catalog.change and perms.catalog.delete or user ==
+                            object.owner %}
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
@@ -48,10 +55,6 @@
             {% endfor %}
         </div>
     </div>
-    {% else %}
-    <div class="col-6 col-md">
-        <h3>Для просмотра продуктов выполните вход</h3>
-        <img src="{% static 'images/default.jpg' %}">
-        {% endif %}
-    </div>
-    {% endblock %}
+
+</div>
+{% endblock %}

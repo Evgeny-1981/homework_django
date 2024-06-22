@@ -24,8 +24,8 @@ class RegisterView(CreateView):
         host = self.request.get_host()
         url = f'http://{host}/users/email-confirm/{token}/'
         send_mail(
-            subject='Подтверждение почты',
-            message=f'Привет. перейти по ссылке для подтверждения почты {url}',
+            subject='Подтверждение почты для завершения регистрации',
+            message=f'Для подтверждения почты необходимо перейти по ссылке: {url}',
             from_email=EMAIL_HOST_USER,
             recipient_list=[user.email],
         )
@@ -42,7 +42,7 @@ def email_verification(request, token):
 class ProfileView(UpdateView):
     model = User
     form_class = UserProfileForm
-    success_url = reverse_lazy('users:profile')
+    success_url = reverse_lazy('catalog:product_list')
 
     def get_object(self, queryset=None):
         return self.request.user

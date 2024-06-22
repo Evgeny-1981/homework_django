@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import User
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -33,8 +34,8 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0, verbose_name="количество")
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
     update_at = models.DateTimeField(auto_now_add=True, verbose_name="дата последнего изменения")
-
-
+    owner = models.ForeignKey(User, related_name='product', verbose_name="владелец", on_delete=models.SET_NULL,
+                              **NULLABLE)
 
     # manufactured_at = models.DateTimeField(verbose_name='дата производства продукта', default=datetime.datetime.now())
 
@@ -49,6 +50,7 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ("name",)
+        permissions = (('add', 'Добавление'), ('change', 'Изменение'), ('delete', 'Удаление'),)
 
 
 class Blog(models.Model):

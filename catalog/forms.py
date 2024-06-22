@@ -1,10 +1,11 @@
 from django.forms import ModelForm, BooleanField
 from django.core.exceptions import ValidationError
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Blog
 
 
 class FormMixin:
     """Класс для стилизации форм"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
@@ -20,7 +21,7 @@ class ProductForm(FormMixin, ModelForm):
 
     class Meta:
         model = Product
-        exclude = ('update_at',)
+        exclude = ('update_at', 'owner',)
 
     def clean_name(self):
         """Метод для проверки валидации названия продукта при создании"""
@@ -51,3 +52,21 @@ class VersionForm(FormMixin, ModelForm):
     class Meta:
         model = Version
         fields = '__all__'
+
+
+class ProductModeratorForm(FormMixin, ModelForm):
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
+class BlogForm(FormMixin, ModelForm):
+    class Meta:
+        model = Blog
+        exclude = ('count_views', 'slug', 'created_at',)
+
+
+class BlogModeratorForm(FormMixin, ModelForm):
+    class Meta:
+        model = Blog
+        exclude = ('count_views', 'created_at',)
