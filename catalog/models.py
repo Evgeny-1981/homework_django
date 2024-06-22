@@ -68,6 +68,7 @@ class Blog(models.Model):
     def __str__(self):
         return f"{self.title}, {self.content}"
 
+
 class Version(models.Model):
     """Модель для версии продукта"""
     product = models.ForeignKey(Product, related_name='version', verbose_name='продукт', on_delete=models.CASCADE)

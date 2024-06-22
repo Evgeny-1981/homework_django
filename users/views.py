@@ -5,8 +5,8 @@ from django.urls import reverse_lazy, reverse
 import secrets
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
-from django.shortcuts import get_object_or_404,  redirect
-from audioop import reverse
+from django.shortcuts import get_object_or_404, redirect
+# from audioop import reverse
 
 
 class RegisterView(CreateView):
@@ -19,8 +19,10 @@ class RegisterView(CreateView):
         user = form.save()
         user.is_active = False
         token = secrets.token_hex(16)
+        user.token = token
+        user.save()
         host = self.request.get_host()
-        url = f'http://{host}/users/email-confirm/{token}'
+        url = f'http://{host}/users/email-confirm/{token}/'
         send_mail(
             subject='Подтверждение почты',
             message=f'Привет. перейти по ссылке для подтверждения почты {url}',
@@ -29,10 +31,13 @@ class RegisterView(CreateView):
         )
         return super().form_valid(form)
 
+
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
-    return redirect(reverse("users:login"))
+    user.save()
+    return redirect(reverse('users:login'))
+
 
 class ProfileView(UpdateView):
     model = User
@@ -41,7 +46,3 @@ class ProfileView(UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
-
-
-
-
