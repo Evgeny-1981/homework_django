@@ -34,6 +34,8 @@ class Product(models.Model):
     create_at = models.DateTimeField(auto_now_add=True, verbose_name="дата создания")
     update_at = models.DateTimeField(auto_now_add=True, verbose_name="дата последнего изменения")
 
+
+
     # manufactured_at = models.DateTimeField(verbose_name='дата производства продукта', default=datetime.datetime.now())
 
     def __str__(self):
