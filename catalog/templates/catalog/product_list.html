@@ -35,14 +35,14 @@
                     </div>
                     <div class="card-body">
                         <h6 class="card-title pricing-card-title">Цена: {{object.price}}</h6>
-                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                        <button type="button" class="btn btn-lg btn-primary">Купить</button>
                         <div class="card-body">
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
                             {% if perms.catalog.add and perms.catalog.change and perms.catalog.delete or user == object.owner %}
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
-                            <a class="btn mb-1 btn-lt btn btn-primary" role="button"
+                            <a class="btn mb-1 btn-lt btn btn-danger" role="button"
                                href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
                             {% endif %}
 
