@@ -9,9 +9,14 @@ from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, BlogFo
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     """Контроллер отображения страницы с продуктами"""
     model = Product
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(published=True)
+        return queryset
 
     def get_context_data(self, *args, **kwargs):
         """Метод для получения версии продукта и вывода только активной версии"""
@@ -137,7 +142,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogListView(ListView):
+class BlogListView(LoginRequiredMixin, ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):

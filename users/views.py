@@ -6,6 +6,7 @@ import secrets
 from django.core.mail import send_mail
 from config.settings import EMAIL_HOST_USER
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class RegisterView(CreateView):
@@ -38,7 +39,7 @@ def email_verification(request, token):
     return redirect(reverse('users:login'))
 
 
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     success_url = reverse_lazy('catalog:product_list')

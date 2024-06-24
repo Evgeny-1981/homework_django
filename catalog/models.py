@@ -36,6 +36,7 @@ class Product(models.Model):
     update_at = models.DateTimeField(auto_now_add=True, verbose_name="дата последнего изменения")
     owner = models.ForeignKey(User, related_name='product', verbose_name="владелец", on_delete=models.SET_NULL,
                               **NULLABLE)
+    published = models.BooleanField(verbose_name="признак публикации", default=False)
 
     # manufactured_at = models.DateTimeField(verbose_name='дата производства продукта', default=datetime.datetime.now())
 
