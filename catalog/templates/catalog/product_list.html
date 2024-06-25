@@ -39,9 +39,10 @@
                         <div class="card-body">
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_info' object.pk %}">Подробнее</a>
-                            {% if perms.catalog.add and perms.catalog.change and perms.catalog.delete or user == object.owner %}
+                            {% if perms.catalog.change_published and perms.catalog.change_description_product and perms.catalog.change_category_product or user == object.owner %}
                             <a class="btn mb-1 btn-lt btn btn-primary" role="button"
                                href="{% url 'catalog:product_update' object.pk %}">Редактировать</a>
+
                             <a class="btn mb-1 btn-lt btn btn-danger" role="button"
                                href="{% url 'catalog:product_delete' object.pk %}">Удалить</a>
                             {% endif %}

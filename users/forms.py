@@ -19,4 +19,3 @@ class UserProfileForm(FormMixin, UserChangeForm):
         super().__init__(*args, **kwargs)
 
         self.fields['password'].widget = forms.HiddenInput()
-

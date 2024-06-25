@@ -51,7 +51,9 @@ class Product(models.Model):
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
         ordering = ("name",)
-        permissions = (('add', 'Добавление'), ('change', 'Изменение'), ('delete', 'Удаление'),)
+        permissions = (('change_published', 'Изменение статуса публикаии'),
+                       ('change_description_product', 'Изменение описания продукта'),
+                       ('change_category_product', 'Изменение категории продукта'),)
 
 
 class Blog(models.Model):

@@ -9,14 +9,19 @@ from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, BlogFo
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ProductListView(LoginRequiredMixin, ListView):
+class ProductListView(ListView):
     """Контроллер отображения страницы с продуктами"""
     model = Product
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
-        queryset = queryset.filter(published=True)
-        return queryset
+        user = self.request.user
+        if user.has_perm('catalog.change_published'):
+            queryset = queryset.all()
+            return queryset
+        else:
+            queryset = queryset.filter(published=True)
+            return queryset
 
     def get_context_data(self, *args, **kwargs):
         """Метод для получения версии продукта и вывода только активной версии"""
@@ -73,7 +78,8 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         user = self.request.user
         if user == self.object.owner:
             return ProductForm
-        elif user.has_perm('catalog.add') and user.has_perm('catalog.change') and user.has_perm('catalog.delete'):
+        elif user.has_perm('catalog.change_published') and user.has_perm(
+                'catalog.change_description_product') and user.has_perm('catalog.change_category_product'):
             return ProductModeratorForm
         else:
             raise PermissionDenied
@@ -105,10 +111,17 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             return self.render_to_response(self.get_context_data(form=form, formset=formset))
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView, ):
     """Контроллер для удаления продукта"""
     model = Product
     success_url = reverse_lazy('catalog:product_list')
+
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.owner:
+            return ProductForm
+        else:
+            raise PermissionDenied
 
 
 class ContactsView(TemplateView):
@@ -142,7 +155,7 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogListView(LoginRequiredMixin, ListView):
+class BlogListView(ListView):
     model = Blog
 
     def get_queryset(self, *args, **kwargs):
@@ -151,7 +164,7 @@ class BlogListView(LoginRequiredMixin, ListView):
         return queryset
 
 
-class BlogCreateView(LoginRequiredMixin, CreateView):
+class BlogCreateView(CreateView):
     model = Blog
     form_class = BlogForm
     # fields = ("title", "content", "preview", "published")
@@ -165,7 +178,7 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class BlogUpdateView(LoginRequiredMixin, UpdateView):
+class BlogUpdateView(UpdateView):
     model = Blog
     form_class = BlogModeratorForm
     # fields = ("title", "slug", "content", "preview", "published",)
@@ -175,6 +188,6 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('catalog:blog_info', args=[self.kwargs.get('slug')])
 
 
-class BlogDeleteView(LoginRequiredMixin, DeleteView):
+class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('catalog:blog_list')
