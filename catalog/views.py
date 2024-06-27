@@ -49,12 +49,20 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
             context_data['formset'] = VersionFormset()
         return context_data
 
+    # def form_valid(self, form):
+    #     if form.is_valid():
+    #         new_blog = form.save()
+    #         new_blog.slug = slugify(new_blog.title)
+    #         new_blog.save()
+    #     return super().form_valid(form)
+
     def form_valid(self, form):
         """Метод валидации формы и формсета"""
         context_data = self.get_context_data()
         formset = context_data['formset']
         if form.is_valid() and formset.is_valid():
             self.object = form.save()
+            self.object.slug = slugify(self.object.name)
             formset.instance = self.object
             formset.save()
             self.object.owner = self.request.user
@@ -67,6 +75,11 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 class ProductDetailView(DetailView):
     """Контроллер для просмотра продукта"""
     model = Product
+
+    # def get_object(self, queryset=None):
+    #     self.object = super().get_object(queryset)
+    #     self.object.save()
+    #     return self.object
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -86,7 +99,7 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         """ Метод для определения пути, куда будет совершен переход после редактирования продукта"""
-        return reverse('catalog:product_info', args=[self.get_object().pk])
+        return reverse('catalog:product_info', args=[self.get_object().slug])
 
     def get_context_data(self, **kwargs):
         """Метод для создания формсета"""

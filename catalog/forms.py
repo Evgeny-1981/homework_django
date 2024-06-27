@@ -21,7 +21,7 @@ class ProductForm(FormMixin, ModelForm):
 
     class Meta:
         model = Product
-        exclude = ('update_at', 'owner',)
+        exclude = ('update_at', 'owner', 'published', 'slug',)
 
     def clean_name(self):
         """Метод для проверки валидации названия продукта при создании"""

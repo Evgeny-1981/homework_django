@@ -22,7 +22,7 @@ class Category(models.Model):
 class Product(models.Model):
     """Модель для продукта"""
     name = models.CharField(max_length=120, verbose_name="наименование")
-
+    slug = models.CharField(max_length=120, verbose_name="слаг", unique=True)
     description = models.TextField(max_length=255, verbose_name="описание", **NULLABLE)
     image = models.ImageField(
         upload_to="media/product_image/", verbose_name="изображение", **NULLABLE
