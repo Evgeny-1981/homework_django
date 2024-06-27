@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User
+from django.utils.text import slugify
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -46,6 +47,11 @@ class Product(models.Model):
     def product_id(self):
         return f'{self.id:04}'
 
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
     class Meta:
         db_table = "product"
         verbose_name = "продукт"
@@ -59,7 +65,7 @@ class Product(models.Model):
 class Blog(models.Model):
     """Модель для блога"""
     title = models.CharField(max_length=120, verbose_name="заголовок", unique=True)
-    slug = models.CharField(max_length=120, verbose_name="слаг")
+    slug = models.CharField(max_length=120, verbose_name="слаг", unique=True)
     content = models.TextField(verbose_name="содержимое")
     preview = models.ImageField(upload_to="blog/images", verbose_name="превью(изображение)", **NULLABLE)
     created_at = models.DateField(auto_now_add=True, verbose_name="дата создания")
