@@ -76,11 +76,6 @@ class ProductDetailView(DetailView):
     """Контроллер для просмотра продукта"""
     model = Product
 
-    # def get_object(self, queryset=None):
-    #     self.object = super().get_object(queryset)
-    #     self.object.save()
-    #     return self.object
-
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
