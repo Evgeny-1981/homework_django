@@ -1,6 +1,7 @@
-from django.forms import ModelForm, BooleanField
 from django.core.exceptions import ValidationError
-from catalog.models import Product, Version, Blog
+from django.forms import ModelForm, BooleanField
+
+from catalog.models import Product, Version, Blog, Category
 
 
 class FormMixin:
@@ -13,6 +14,14 @@ class FormMixin:
                 field.widget.attrs['class'] = 'form-check-input'
             else:
                 field.widget.attrs['class'] = 'form-control'
+
+
+class CategoryForm(FormMixin, ModelForm):
+    """Класс для создание форм для модели Категория"""
+
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 
 class ProductForm(FormMixin, ModelForm):

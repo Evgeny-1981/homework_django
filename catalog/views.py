@@ -1,12 +1,28 @@
-from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
-from catalog.models import Product, Blog, Version
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
-from pytils.translit import slugify
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
-from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, BlogForm, BlogModeratorForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from pytils.translit import slugify
+
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm, BlogForm, BlogModeratorForm, CategoryForm
+from catalog.models import Product, Blog, Version, Category
+from catalog.services import get_categoryes_list
+
+
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+
+    def get_queryset(self):
+        return get_categoryes_list()
+
+
+class CategoryCreateView(LoginRequiredMixin, CreateView):
+    """Контроллер для создания продукта"""
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('catalog:categoryes_list')
 
 
 class ProductListView(ListView):
