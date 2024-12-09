@@ -1,0 +1,130 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "name": "Автомобили",
+      "description": "Без комментариев"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+      "name": "Мотоциклы",
+      "description": "Без комментариев"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 25,
+    "fields": {
+      "name": "LADA VESTA",
+      "description": "Отечественный автопром",
+      "image": "media/product_image/Vesta.png",
+      "category": 3,
+      "price": "2035000.00",
+      "quantity": 3,
+      "create_at": "2024-05-09T13:08:44Z",
+      "update_at": "2024-05-09T13:08:46Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 26,
+    "fields": {
+      "name": "Suzuki",
+      "description": "Гоночный мотоцикл",
+      "image": "media/product_image/suzuki.jpg",
+      "category": 4,
+      "price": "1500000.00",
+      "quantity": 2,
+      "create_at": "2024-05-09T13:09:20Z",
+      "update_at": "2024-05-09T13:09:21Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 27,
+    "fields": {
+      "name": "НИВА LEGEND",
+      "description": "Для бездорожья",
+      "image": "media/product_image/Niva.png",
+      "category": 3,
+      "price": "1020000.00",
+      "quantity": 3,
+      "create_at": "2024-05-13T15:58:18Z",
+      "update_at": "2024-05-13T15:58:19Z"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 28,
+    "fields": {
+      "name": "LARGUS",
+      "description": "Для тех, кто в теме",
+      "image": "",
+      "category": 3,
+      "price": "1900000.00",
+      "quantity": 5,
+      "create_at": "2024-05-13T16:00:23Z",
+      "update_at": "2024-05-13T16:00:24Z"
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 2,
+    "fields": {
+      "title": "Запись 2",
+      "slug": "zapis-2",
+      "content": "Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2",
+      "preview": "",
+      "created_at": "2024-06-13",
+      "published": true,
+      "count_views": 11
+    }
+  },
+  {
+    "model": "catalog.blog",
+    "pk": 6,
+    "fields": {
+      "title": "Запись 22",
+      "slug": "zapis-22",
+      "content": "Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2Запись 2",
+      "preview": "",
+      "created_at": "2024-06-18",
+      "published": true,
+      "count_views": 2
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 1,
+    "fields": {
+      "product": 25,
+      "version_number": 1,
+      "version_name": "1",
+      "current_version": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 13,
+    "fields": {
+      "product": 28,
+      "version_number": 1,
+      "version_name": "1",
+      "current_version": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 16,
+    "fields": {
+      "product": 26,
+      "version_number": 1,
+      "version_name": "1",
+      "current_version": true
+    }
+  }
+]
